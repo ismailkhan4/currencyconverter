@@ -1,15 +1,16 @@
-import {View, Text} from 'react-native';
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
+
+import {Home} from './app/screens';
 
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Currency Converter</Text>
-    </View>
+    <>
+      <Home />
+    </>
   );
 };
 
