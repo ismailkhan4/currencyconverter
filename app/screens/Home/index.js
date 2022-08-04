@@ -1,11 +1,18 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import {ClearButton, Container, CustomInput, Logo} from '../../components';
+import {
+  ClearButton,
+  Container,
+  CustomInput,
+  Header,
+  Logo,
+} from '../../components';
 import {colors, dimensions} from '../../assets';
 
 const Home = () => {
   return (
     <Container>
+      <Header onPress={() => {}} />
       <Logo />
       <View style={{marginVertical: dimensions.normal}} />
       <Text style={{color: colors.white, fontSize: dimensions.extended}}>
