@@ -9,7 +9,13 @@ const CustomInput = props => {
         <Text style={style.buttonText}>{props.buttonText}</Text>
       </TouchableOpacity>
       <View style={style.border} />
-      <TextInput style={style.input} />
+      <TextInput
+        style={style.input}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChangeText={props.onChangeText}
+        editable={props.editable}
+      />
     </View>
   );
 };
