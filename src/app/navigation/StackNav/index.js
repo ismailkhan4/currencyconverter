@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {CurrencyList, Home, Login} from '../../screens';
+import {CurrencyList, Home, Login, Options} from '../../screens';
 import ThemeList from '../../screens/ThemeList';
 
 const StackNavigation = () => {
@@ -12,6 +12,11 @@ const StackNavigation = () => {
       initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="Options"
+        component={Options}
+        options={{headerShown: true}}
+      />
       <Stack.Screen
         name="CurrencyList"
         component={CurrencyList}

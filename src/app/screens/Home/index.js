@@ -37,7 +37,7 @@ const Home = () => {
     <Container>
       <Header
         onPress={() => {
-          navigation.navigate('ThemeList');
+          navigation.navigate('Options');
         }}
       />
       <Logo />
