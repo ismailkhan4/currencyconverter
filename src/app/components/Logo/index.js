@@ -1,12 +1,12 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {Animated, View} from 'react-native';
 import {images} from '../../../assets';
 import {Icon} from './style';
 
-const Logo = () => {
+const Logo = props => {
   return (
     <View>
-      <Icon source={images.logo} />
+      <Animated.Image source={images.logo} style={props.style} />
     </View>
   );
 };

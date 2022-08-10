@@ -1,5 +1,5 @@
-import {View} from 'react-native';
-import React, {useState} from 'react';
+import {Animated, View} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {ClearButton, CustomInput, Header, Logo} from '../../components';
 
 import {useNavigation} from '@react-navigation/native';
@@ -14,6 +14,14 @@ const Home = () => {
   let [selectedFromCurrency, setSelectedFromCurrency] = useState('USD');
   let [selectedToCurrency, setSelectedToCurrency] = useState('PKR');
   const [swapCurrency, setSwapCurrency] = useState(false);
+  const imageAnim = useRef(new Animated.Value(200)).current;
+
+  const handleAnimated = () => {
+    Animated.timing(imageAnim, {toValue: 100, duration: 400}).start();
+  };
+  const reverseAnimated = () => {
+    Animated.timing(imageAnim, {toValue: 200, duration: 400}).start();
+  };
 
   const [value, setValue] = useState(0);
 
@@ -40,7 +48,7 @@ const Home = () => {
           navigation.navigate('Options');
         }}
       />
-      <Logo />
+      <Logo style={{width: imageAnim, height: imageAnim}} />
       <View style={{marginVertical: dimensions.normal}} />
       <Title>Currency Converter</Title>
       <View style={{marginVertical: dimensions.normal}} />
@@ -75,6 +83,8 @@ const Home = () => {
           console.log(event);
         }}
         currencyBtn
+        onFocus={handleAnimated}
+        onBlur={reverseAnimated}
       />
       <CustomInput
         onPress={() => {

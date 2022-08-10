@@ -1,5 +1,11 @@
-import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import {
+  ActivityIndicator,
+  Animated,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {CustomInput, Header, Logo, SubmitButton} from '../../components';
 
 import {useNavigation} from '@react-navigation/native';
@@ -14,6 +20,15 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoaing] = useState(false);
+
+  const imageAnim = useRef(new Animated.Value(200)).current;
+
+  const handleAnimated = () => {
+    Animated.timing(imageAnim, {toValue: 100, duration: 400}).start();
+  };
+  const reverseAnimated = () => {
+    Animated.timing(imageAnim, {toValue: 200, duration: 400}).start();
+  };
 
   const theme = handleTheme();
 
@@ -79,7 +94,7 @@ const Login = () => {
           navigation.navigate('ThemeList');
         }}
       />
-      <Logo />
+      <Logo style={{width: imageAnim, height: imageAnim}} />
       <View style={{marginVertical: dimensions.normal}} />
       <Title>Login</Title>
       <View style={{marginVertical: dimensions.normal}} />
@@ -90,6 +105,8 @@ const Login = () => {
           setEmail(event.nativeEvent.text);
           console.log('email', event.nativeEvent.text);
         }}
+        onFocus={handleAnimated}
+        onBlur={reverseAnimated}
       />
       <CustomInput
         onPress={() => {}}
@@ -100,6 +117,8 @@ const Login = () => {
           console.log('password', event.nativeEvent.text);
         }}
         secureTextEntry={true}
+        onFocus={handleAnimated}
+        onBlur={reverseAnimated}
       />
       <View style={{height: 10}} />
       <SubmitButton
