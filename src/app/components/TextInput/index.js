@@ -1,4 +1,5 @@
 import React from 'react';
+import {Text} from 'react-native';
 import styled from 'styled-components/native';
 import handleTheme from '../../helper';
 
@@ -8,20 +9,19 @@ const CustomInput = props => {
   const Container = styled.View`
     height: 48px;
     border-radius: 4px;
-    width: 90%;
+    width: 80%;
     flex-direction: row;
     margin: 11px 0;
     background-color: ${theme.white};
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
   `;
   const Touchable = styled.TouchableOpacity`
     height: 48px;
     align-items: center;
     justify-content: center;
     background-color: ${theme.white};
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
   `;
   const BtnText = styled.Text`
     font-weight: 400;
@@ -38,21 +38,23 @@ const CustomInput = props => {
     height: 48px;
     display: flex;
     flex: 1;
-    padding: 0 8px;
+    padding: ${props.currencyBtn ? '0 8px' : '0 20px'};
   `;
 
   return (
     <Container>
-      <Touchable onPress={props.onPress}>
-        <BtnText>{props.buttonText}</BtnText>
-      </Touchable>
+      {props.currencyBtn ? (
+        <Touchable onPress={props.onPress}>
+          <BtnText>{props.buttonText}</BtnText>
+        </Touchable>
+      ) : null}
       <Border />
       <Input
         placeholder={props.placeholder}
         value={props.value}
-        onChangeText={props.onChangeText}
+        onEndEditing={props.onEndEditing}
         editable={props.editable}
-        keyboardType="numeric"
+        {...props}
       />
     </Container>
   );

@@ -13,6 +13,7 @@ const Home = () => {
   const navigation = useNavigation();
   let [selectedFromCurrency, setSelectedFromCurrency] = useState('USD');
   let [selectedToCurrency, setSelectedToCurrency] = useState('PKR');
+  const [swapCurrency, setSwapCurrency] = useState(false);
 
   const [value, setValue] = useState(0);
 
@@ -50,10 +51,30 @@ const Home = () => {
             handleSelectedCurr: setSelectedFromCurrency,
           });
         }}
-        buttonText={selectedFromCurrency}
+        buttonText={
+          swapCurrency
+            ? (selectedToCurrency = selectedToCurrency)
+            : selectedFromCurrency
+        }
         placeholder="Enter amount"
-        value={value}
-        onChangeText={setValue}
+        value={
+          swapCurrency
+            ? `${
+                currencyRates.map(e => {
+                  if (e.USD) {
+                    return e.USD * value;
+                  } else if (e.PKR) {
+                    return e.PKR * value;
+                  }
+                })[0]
+              }`
+            : value
+        }
+        onEndEditing={event => {
+          setValue(event.nativeEvent.text);
+          console.log(event);
+        }}
+        currencyBtn
       />
       <CustomInput
         onPress={() => {
@@ -62,26 +83,34 @@ const Home = () => {
             handleSelectedCurr: setSelectedToCurrency,
           });
         }}
-        buttonText={selectedToCurrency}
-        value={`${
-          currencyRates.map(e => {
-            if (e.USD) {
-              return e.USD * value;
-            } else if (e.PKR) {
-              return e.PKR * value;
-            }
-          })[0]
-        }`}
+        buttonText={
+          swapCurrency
+            ? (selectedToCurrency = selectedFromCurrency)
+            : selectedToCurrency
+        }
+        value={
+          swapCurrency
+            ? value
+            : `${
+                currencyRates.map(e => {
+                  if (e.USD) {
+                    return e.USD * value;
+                  } else if (e.PKR) {
+                    return e.PKR * value;
+                  }
+                })[0]
+              }`
+        }
+        onEndEditing={event => setValue(event.nativeEvent.text)}
         editable={false}
+        currencyBtn
       />
+      {console.log('swap', selectedFromCurrency, selectedToCurrency)}
       <ClearButton
         text="Reverse Currencies"
-        onPress={() =>
-          (selectedToCurrency = [
-            selectedFromCurrency,
-            (selectedFromCurrency = selectedToCurrency),
-          ][0])
-        }
+        onPress={() => {
+          setSwapCurrency(!swapCurrency);
+        }}
       />
     </Container>
   );
